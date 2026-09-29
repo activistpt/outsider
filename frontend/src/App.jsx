@@ -1,34 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import LoginPage from './pages/LoginPage';
-import ChatPage from './pages/ChatPage';
-import useAuthStore from '../store/authStore';
-
-const queryClient = new QueryClient();
+import LoginPage from './pages/Login';
+import Chat from './components/Chat';
+import useAuthStore from './stores/authStore';
+import useChatStore from './stores/chatStore';
 
 const App = () => {
-  const { user, token } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
+  const { messages, setMessages } = useChatStore();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route 
-            path="/login" 
-            element={!token ? <LoginPage /> : <Navigate to="/chat" />} 
-          />
-          <Route 
-            path="/chat" 
-            element={token ? <ChatPage /> : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/" 
-            element={<Navigate to={token ? '/chat' : '/login'} />} 
-          />
-        </Routes>
-      </Router>
-    </QueryClientProvider>
+    <Router>
+      <Routes>
+        <Route 
+          path="/login" 
+          element={!isAuthenticated ? <LoginPage /> : <Navigate to="/chat" />} 
+        />
+        <Route 
+          path="/chat" 
+          element={isAuthenticated ? <Chat /> : <Navigate to="/login" />} 
+        />
+        <Route path="*" element={<Navigate to={isAuthenticated ? "/chat" : "/login"} />} />
+      </Routes>
+    </Router>
   );
 };
 
