@@ -2,7 +2,6 @@
 node_modules/
 
 # Build output
-build/
 dist/
 
 # Environment files
@@ -36,4 +35,3 @@ tmp/
 # Package manager directories
 .pnp
 .svelte-kit
-**/.pnpm-store/build/
