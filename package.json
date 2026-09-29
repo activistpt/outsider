@@ -1,0 +1,16 @@
+{
+  "name": "outsider",
+  "version": "1.0.0",
+  "description": "NEOCHAT - Aplicação web de chat online completa com frontend React e backend Node.js",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": ["chat", "websocket", "real-time", "messaging", "social"],
+  "author": "",
+  "license": "MIT",
+  "workspaces": ["frontend", "backend"]
+}
